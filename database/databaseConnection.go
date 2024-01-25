@@ -4,14 +4,16 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func DBinstance() *mongo.Client {
-	MongoDb := "mongodb+srv://guptaharshit99:khushi01@cluster0.t9nmigi.mongodb.net/?retryWrites=true&w=majority"
-	fmt.Print(MongoDb)
+	Setenv()
+	MongoDb := os.Getenv("MongoDb")
+	// fmt.Print("DB-URL -> "+MongoDb)
 
 	// ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(MongoDb))
